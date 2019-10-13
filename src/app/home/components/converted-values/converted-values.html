@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="closeModal()" color="secondary">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Converted Values
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+  <ion-grid>
+    <ion-row>
+      <ion-segment (ionChange)="segmentChanged($event)" [value]="tab">
+        <ion-segment-button value="arabic">
+          <ion-label>Arabic</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="roman">
+          <ion-label>Roman</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <ion-row>
+      <ion-list class="customList">
+        <ion-item *ngFor="let item of values">
+          <ion-label class="ion-text-center">
+            {{ item[tab] }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-button
+        expand="block"
+        fill="outline"
+        color="danger"
+        (click)="deleteAll()"
+        >Delete All</ion-button
+      >
+    </ion-row>
+  </ion-grid>
+</ion-content>

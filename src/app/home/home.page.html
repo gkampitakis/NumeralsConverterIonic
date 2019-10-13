@@ -1,71 +1,70 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title text-center>
+    <ion-title class="ion-text-center">
       Converter
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding class="full-height-grid">
-    <ion-row class="main-row" justify-content-center>
-      <ion-col size="8" size-md="4" size-xl="3" align-self-center>
-        <ion-row justify-content-center>
-          <ion-item no-padding>
+  <ion-grid class="no-padding" class="full-height-grid">
+    <ion-row class="main-row ion-justify-content-center">
+      <ion-col size="8" size-md="4" size-xl="3" class="ion-align-self-center">
+        <ion-row class="justify-content-center">
+          <ion-item class="no-padding">
             <ion-label position="floating">Arabic</ion-label>
             <ion-input
+              clear-input="true"
               [ngClass]="{ 'gray': roman != null }"
               [(ngModel)]="arabic"
               type="number"
             ></ion-input>
           </ion-item>
         </ion-row>
-        <ion-row justify-content-center padding-top>
-          <ion-item no-padding>
+        <ion-row class="ion-justify-content-center ion-padding-top">
+          <ion-item class="no-padding">
             <ion-label position="floating">Roman</ion-label>
             <ion-input
+              clear-input="true"
               [ngClass]="{ 'gray': arabic != null }"
               [(ngModel)]="roman"
+              pattern="^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
               type="text"
             ></ion-input>
           </ion-item>
-          <!-- <ion-label>Roman</ion-label>
-          <ion-input
-            [disabled]="arabic != null || submitted"
-            [ngClass]="{ 'gray': arabic != null }"
-            [(ngModel)]="roman"
-            type="text"
-          ></ion-input> -->
         </ion-row>
-        <ion-row justify-content-center padding-top>
-          <ion-col size="6" no-padding>
+        <ion-row class="ion-justify-content-center ion-padding-top">
+          <ion-col size="6" class="no-padding">
             <ion-button
               color="light"
               expand="block"
               fill="outline"
               (click)="clearBoth()"
-              >Clear</ion-button
+              >Clear Both</ion-button
             >
           </ion-col>
-          <ion-col size="6" no-padding>
+          <ion-col size="6" class="no-padding">
             <ion-button
               color="light"
               expand="block"
               fill="outline"
               [disabled]="
-                submitted ||
-                (!roman && arabic == null) ||
-                (roman && arabic != null)
+                (!roman && arabic == null) || !!(roman && arabic != null)
               "
               (click)="calculate()"
               >Submit</ion-button
             >
           </ion-col>
         </ion-row>
-        <ion-row class="error-row">
-          <ion-label *ngIf="errorMessage != null">{{ errorMessage }}</ion-label>
-        </ion-row>
       </ion-col>
     </ion-row>
+    <ion-fab-button
+      (click)="presentModal()"
+      class="fab_button"
+      translucent="true"
+      mode="ios"
+      color="light"
+      ><ion-icon name="list"></ion-icon
+    ></ion-fab-button>
   </ion-grid>
 </ion-content>

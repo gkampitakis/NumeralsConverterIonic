@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  serverUri: 'https://roman-arabic-converter.herokuapp.com/'
 };

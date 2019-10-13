@@ -11,10 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ConvertedValues } from './home/components/converted-values/converted-values';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ConvertedValues],
+  entryComponents: [ConvertedValues],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

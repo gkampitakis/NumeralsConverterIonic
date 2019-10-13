@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serverUri: 'https://roman-arabic-converter.herokuapp.com/'
+  // 'http://localhost:5000/'
 };
 
 /*
