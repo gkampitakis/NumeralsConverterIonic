@@ -1,14 +1,71 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+    <ion-title text-center>
+      Converter
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-grid no-padding class="full-height-grid">
+    <ion-row class="main-row" justify-content-center>
+      <ion-col size="8" size-md="4" size-xl="3" align-self-center>
+        <ion-row justify-content-center>
+          <ion-item no-padding>
+            <ion-label position="floating">Arabic</ion-label>
+            <ion-input
+              [ngClass]="{ 'gray': roman != null }"
+              [(ngModel)]="arabic"
+              type="number"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center padding-top>
+          <ion-item no-padding>
+            <ion-label position="floating">Roman</ion-label>
+            <ion-input
+              [ngClass]="{ 'gray': arabic != null }"
+              [(ngModel)]="roman"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <!-- <ion-label>Roman</ion-label>
+          <ion-input
+            [disabled]="arabic != null || submitted"
+            [ngClass]="{ 'gray': arabic != null }"
+            [(ngModel)]="roman"
+            type="text"
+          ></ion-input> -->
+        </ion-row>
+        <ion-row justify-content-center padding-top>
+          <ion-col size="6" no-padding>
+            <ion-button
+              color="light"
+              expand="block"
+              fill="outline"
+              (click)="clearBoth()"
+              >Clear</ion-button
+            >
+          </ion-col>
+          <ion-col size="6" no-padding>
+            <ion-button
+              color="light"
+              expand="block"
+              fill="outline"
+              [disabled]="
+                submitted ||
+                (!roman && arabic == null) ||
+                (roman && arabic != null)
+              "
+              (click)="calculate()"
+              >Submit</ion-button
+            >
+          </ion-col>
+        </ion-row>
+        <ion-row class="error-row">
+          <ion-label *ngIf="errorMessage != null">{{ errorMessage }}</ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

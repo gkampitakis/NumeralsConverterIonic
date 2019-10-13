@@ -1,1 +1,35 @@
+.full-height-grid {
+  height: 100%;
+  background: linear-gradient(#4ebfa5, #3f7bb6);
+}
 
+.main-row {
+  height: 80%;
+}
+
+.gray {
+  opacity: 0.9 !important;
+}
+
+ion-button {
+  --border-radius: 5px;
+}
+
+.error-row {
+  min-height: 50px;
+}
+
+ion-item {
+  width: 100%;
+  --inner-padding-end: 0px;
+  --padding-start: 0px;
+  --background: transparent !important;
+  --border-color: white !important;
+  --color-activated: white !important;
+  --color-focused: white !important;
+  --highlight-color-focused: white !important;
+}
+
+ion-title {
+  font-size: 16px;
+}
