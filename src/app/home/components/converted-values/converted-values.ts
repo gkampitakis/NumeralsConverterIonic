@@ -15,7 +15,6 @@ import { ConversionService } from 'src/app/conversion.service';
 export class ConvertedValues implements OnInit {
   tab: string = 'arabic';
   values: Array<any> = [];
-  loader: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -26,15 +25,14 @@ export class ConvertedValues implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.loader = await this.loadCtrl.create({
-      message: 'Please wait ...',
-      duration: 2000,
-      translucent: true
-    });
+    const loading = await this.createLoading();
+    loading.present();
     try {
       this.values = await this.conversionService.retrieveAll(this.tab);
     } catch (error) {
       this.showErrorToast(JSON.stringify(error));
+    } finally {
+      loading.dismiss();
     }
   }
 
@@ -43,19 +41,17 @@ export class ConvertedValues implements OnInit {
   }
 
   async segmentChanged(event) {
-    const loading = await this.loadCtrl.create({
-      message: 'Please wait ...',
-      duration: 2000,
-      translucent: true
-    });
+    this.values = [];
+    const loading = await this.createLoading();
     const query = (this.tab = event.detail.value);
-    this.loader.present();
+
+    loading.present();
     try {
       this.values = await this.conversionService.retrieveAll(query);
     } catch (error) {
       this.showErrorToast(JSON.stringify(error));
     } finally {
-      this.loader.dismiss();
+      loading.dismiss();
     }
   }
 
@@ -79,14 +75,15 @@ export class ConvertedValues implements OnInit {
             text: 'Okay',
             cssClass: 'alertButton',
             handler: async () => {
-              this.loader.present();
+              const loading = await this.createLoading();
+              loading.present();
               try {
                 await this.conversionService.removeAll();
                 this.values = [];
               } catch (error) {
                 this.showErrorToast(JSON.stringify(error));
               } finally {
-                this.loader.dismiss();
+                loading.dismiss();
               }
             }
           }
@@ -103,5 +100,12 @@ export class ConvertedValues implements OnInit {
       color: 'danger'
     });
     toast.present();
+  }
+
+  private async createLoading() {
+    return this.loadCtrl.create({
+      message: 'Please wait ...',
+      translucent: true
+    });
   }
 }

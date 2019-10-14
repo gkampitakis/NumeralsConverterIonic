@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUri: 'https://roman-arabic-converter.herokuapp.com/'
-  // 'http://localhost:5000/'
+  // serverUri: 'https://roman-arabic-converter.herokuapp.com/'
+  serverUri: 'http://localhost:5000/'
 };
 
 /*

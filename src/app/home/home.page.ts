@@ -12,11 +12,10 @@ import { ConvertedValues } from './components/converted-values/converted-values'
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnInit {
-  roman: string;
-  arabic: number;
+export class HomePage {
+  roman: string = '';
+  arabic: number = null;
   submitted: boolean = false;
-  loader: any;
 
   constructor(
     private conversionService: ConversionService,
@@ -25,41 +24,37 @@ export class HomePage implements OnInit {
     private loadCtrl: LoadingController
   ) {}
 
-  async ngOnInit() {
-    this.loader = await this.loadCtrl.create({
-      message: 'Please wait ...',
-      duration: 2000,
-      translucent: true
-    });
-  }
-
   clearBoth() {
-    this.roman = null;
+    this.roman = '';
     this.arabic = null;
     this.submitted = false;
   }
 
   async calculate() {
+    const loading = await this.createLoading();
     this.submitted = true;
-    if (this.roman != null) {
-      this.loader.present();
+
+    if (this.roman !== '' && this.arabic == null) {
+      loading.present();
       try {
         this.arabic = await this.conversionService.getArabic(this.roman);
       } catch (err) {
         this.showErrorToast(JSON.stringify(err));
         this.submitted = false;
       } finally {
-        this.loader.dismiss();
+        loading.dismiss();
       }
-    } else if (this.arabic != null) {
-      this.loader.present();
+    }
+
+    if (this.arabic != null && this.roman === '') {
+      loading.present();
       try {
         this.roman = await this.conversionService.getRoman(this.arabic);
       } catch (err) {
         this.showErrorToast(JSON.stringify(err));
         this.submitted = false;
       } finally {
-        this.loader.dismiss();
+        loading.dismiss();
       }
     }
   }
@@ -80,5 +75,12 @@ export class HomePage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  private async createLoading() {
+    return this.loadCtrl.create({
+      message: 'Please wait ...',
+      translucent: true
+    });
   }
 }
