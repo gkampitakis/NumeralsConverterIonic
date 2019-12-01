@@ -4,7 +4,7 @@ UI for consuming the API [Typescript Roman Numerals](https://github.com/gkampita
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development. An online version of this UI PWA is deployed on [ [Here](https://www.csd.uoc.gr/~csd3142/converter/) ].
+These instructions will get you a copy of the project up and running on your local machine for development. An online version of this UI PWA is deployed on [ [Here](https://gkampitakis.github.io/NumeralsConverterIonic/) ].
 
 ### Prerequisites
 
